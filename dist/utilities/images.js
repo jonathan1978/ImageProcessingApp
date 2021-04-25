@@ -39,33 +39,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var fs_1 = __importDefault(require("fs"));
 var promises_1 = require("fs/promises");
-var fs_1 = require("fs");
+var fs_2 = require("fs");
 var sharp_1 = __importDefault(require("sharp"));
 function transform(imageName) {
     return __awaiter(this, void 0, void 0, function () {
-        var error_1;
+        var outputFile, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    console.log("fileName: ", imageName);
-                    return [4 /*yield*/, promises_1.access("./images/" + imageName, fs_1.constants.R_OK | fs_1.constants.W_OK)];
-                case 1:
+                    _a.trys.push([0, 5, , 6]);
+                    outputFile = "./converted/" + imageName;
+                    if (!fs_1.default.existsSync(outputFile)) return [3 /*break*/, 1];
+                    //file exists
+                    return [2 /*return*/, imageName];
+                case 1: return [4 /*yield*/, promises_1.access("./images/" + imageName, fs_2.constants.R_OK | fs_2.constants.W_OK)];
+                case 2:
                     _a.sent();
                     return [4 /*yield*/, sharp_1.default("./images/" + imageName)
                             .resize(300, 200)
-                            .toFile("./converted/" + imageName, function (err) {
+                            .toFile(outputFile, function (err) {
                             // output.jpg is a 300 pixels wide and 200 pixels high image
                             // containing a scaled and cropped version of input.jpg
                         })];
-                case 2:
+                case 3:
                     _a.sent();
                     return [2 /*return*/, imageName];
-                case 3:
+                case 4: return [3 /*break*/, 6];
+                case 5:
                     error_1 = _a.sent();
                     return [2 /*return*/, "Image does not exist"];
-                case 4: return [2 /*return*/];
+                case 6: return [2 /*return*/];
             }
         });
     });
