@@ -40,8 +40,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(require("fs"));
-var promises_1 = require("fs/promises");
 var fs_2 = require("fs");
+var fs_3 = require("fs");
 var sharp_1 = __importDefault(require("sharp"));
 function transform(imageName) {
     return __awaiter(this, void 0, void 0, function () {
@@ -54,14 +54,13 @@ function transform(imageName) {
                     if (!fs_1.default.existsSync(outputFile)) return [3 /*break*/, 1];
                     //file exists
                     return [2 /*return*/, imageName];
-                case 1: return [4 /*yield*/, promises_1.access("./images/" + imageName, fs_2.constants.R_OK | fs_2.constants.W_OK)];
+                case 1: return [4 /*yield*/, fs_2.promises.access("./images/" + imageName, fs_3.constants.R_OK | fs_3.constants.W_OK)];
                 case 2:
                     _a.sent();
                     return [4 /*yield*/, sharp_1.default("./images/" + imageName)
                             .resize(300, 200)
                             .toFile(outputFile, function (err) {
-                            // output.jpg is a 300 pixels wide and 200 pixels high image
-                            // containing a scaled and cropped version of input.jpg
+                            console.log("Image Processed");
                         })];
                 case 3:
                     _a.sent();

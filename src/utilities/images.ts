@@ -1,6 +1,5 @@
 import fs from "fs";
-import * as path from 'path';
-import { access } from 'fs/promises';
+import {promises as fsPromises} from "fs";
 import { constants } from 'fs';
 import sharp from "sharp";
 
@@ -11,7 +10,7 @@ async function transform(imageName: string) {
           //file exists
           return imageName;
         } else {
-          await access(`./images/${imageName}`, constants.R_OK | constants.W_OK);
+          await fsPromises.access(`./images/${imageName}`, constants.R_OK | constants.W_OK);
           await sharp(`./images/${imageName}`)
             .resize(300, 200)
             .toFile(outputFile, function(err) {
