@@ -5,18 +5,16 @@ import sharp from "sharp";
 
 async function transform(imageName: string) {
     try {
-        const outputFile = `./converted/${imageName}`;
+        let outputFile = `./converted/${imageName}`;
         if (fs.existsSync(outputFile)) {
-          //file exists
-          return imageName;
+          return outputFile;
         } else {
           await fsPromises.access(`./images/${imageName}`, constants.R_OK | constants.W_OK);
-          await sharp(`./images/${imageName}`)
-            .resize(300, 200)
-            .toFile(outputFile, function(err) {
-              console.log("Image Processed");
-          });
-          return imageName;
+          const response = await sharp(`./images/${imageName}`).resize(300, 200);
+          response.toFile(outputFile, function(err) {
+            return outputFile;
+          })
+          return outputFile;
         }
       } catch (error) {
         return "Image does not exist";

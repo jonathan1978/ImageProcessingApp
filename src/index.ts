@@ -1,18 +1,21 @@
 import express from "express";
 import { stringify } from "node:querystring";
 import images from "./utilities/images";
+import path from "path";
 
 const app = express();
 const port = 3000;
 
-app.get('/api/images', (req, res) => {
+app.get('/api/images', async (req, res) => {
     const fileName = req.query.fileName as string;
     if (fileName !== undefined) {
-        images.transform(fileName);
-        res.send(fileName);
+        images.transform(fileName).then((response) => {
+            console.log("response: ", response);
+            res.sendFile(path.resolve(response));
+        })
+        
     } else {
-        console.log(req.query.fileName);
-        res.send('images');
+        res.send('File Name is undefined');
     }
 })
 
