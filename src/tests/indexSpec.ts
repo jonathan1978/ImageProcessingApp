@@ -13,9 +13,9 @@ describe('Test for endpoint requests and responses', () => {
     })
 
     describe('Image transform function should resolve or reject', () => {
-        it('expect transform function to read file', async () => {
+        it('expect transform function to resize file', async () => {
             const data = await images.transform('fjord.jpg');
-            expect(data).toBe('fjord.jpg');
+            expect(data).toBe('./converted/fjord.jpg');
         })
 
         it('show error if file does not exist', async () => {

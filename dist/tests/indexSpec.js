@@ -60,14 +60,14 @@ describe('Test for endpoint requests and responses', function () {
         }); });
     });
     describe('Image transform function should resolve or reject', function () {
-        it('expect transform function to read file', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('expect transform function to resize file', function () { return __awaiter(void 0, void 0, void 0, function () {
             var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, images_1.default.transform('fjord.jpg')];
                     case 1:
                         data = _a.sent();
-                        expect(data).toBe('fjord.jpg');
+                        expect(data).toBe('./converted/fjord.jpg');
                         return [2 /*return*/];
                 }
             });

@@ -10,10 +10,7 @@ async function transform(imageName: string) {
           return outputFile;
         } else {
           await fsPromises.access(`./images/${imageName}`, constants.R_OK | constants.W_OK);
-          const response = await sharp(`./images/${imageName}`).resize(300, 200);
-          response.toFile(outputFile, function(err) {
-            return outputFile;
-          })
+          await sharp(`./images/${imageName}`).resize(300, 200).toFile(outputFile);
           return outputFile;
         }
       } catch (error) {

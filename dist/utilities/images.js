@@ -52,19 +52,14 @@ function transform(imageName) {
                     _a.trys.push([0, 5, , 6]);
                     outputFile = "./converted/" + imageName;
                     if (!fs_1.default.existsSync(outputFile)) return [3 /*break*/, 1];
-                    //file exists
-                    return [2 /*return*/, imageName];
+                    return [2 /*return*/, outputFile];
                 case 1: return [4 /*yield*/, fs_2.promises.access("./images/" + imageName, fs_3.constants.R_OK | fs_3.constants.W_OK)];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, sharp_1.default("./images/" + imageName)
-                            .resize(300, 200)
-                            .toFile(outputFile, function (err) {
-                            console.log("Image Processed");
-                        })];
+                    return [4 /*yield*/, sharp_1.default("./images/" + imageName).resize(300, 200).toFile(outputFile)];
                 case 3:
                     _a.sent();
-                    return [2 /*return*/, imageName];
+                    return [2 /*return*/, outputFile];
                 case 4: return [3 /*break*/, 6];
                 case 5:
                     error_1 = _a.sent();
