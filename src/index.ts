@@ -10,7 +10,6 @@ app.get('/api/images', async (req, res) => {
     const fileName = req.query.fileName as string;
     if (fileName !== undefined) {
         images.transform(fileName).then((response) => {
-            console.log("response: ", response);
             res.sendFile(path.resolve(response));
         })
         
