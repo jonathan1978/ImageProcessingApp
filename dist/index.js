@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var images_1 = __importDefault(require("./utilities/images"));
 var path_1 = __importDefault(require("path"));
+var is_valid_path_1 = __importDefault(require("is-valid-path"));
 var app = express_1.default();
 var port = 3000;
 app.get('/api/images', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -50,8 +51,12 @@ app.get('/api/images', function (req, res) { return __awaiter(void 0, void 0, vo
         fileName = req.query.fileName;
         if (fileName !== undefined) {
             images_1.default.transform(fileName).then(function (response) {
-                console.log("response: ", response);
-                res.sendFile(path_1.default.resolve(response));
+                if (is_valid_path_1.default(response)) {
+                    res.sendFile(path_1.default.resolve(response));
+                }
+                else {
+                    res.send(response);
+                }
             });
         }
         else {

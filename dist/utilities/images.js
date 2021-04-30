@@ -40,8 +40,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(require("fs"));
-var fs_2 = require("fs");
-var fs_3 = require("fs");
 var sharp_1 = __importDefault(require("sharp"));
 function transform(imageName) {
     return __awaiter(this, void 0, void 0, function () {
@@ -53,17 +51,17 @@ function transform(imageName) {
                     outputFile = "./converted/" + imageName;
                     if (!fs_1.default.existsSync(outputFile)) return [3 /*break*/, 1];
                     return [2 /*return*/, outputFile];
-                case 1: return [4 /*yield*/, fs_2.promises.access("./images/" + imageName, fs_3.constants.R_OK | fs_3.constants.W_OK)];
+                case 1:
+                    if (!fs_1.default.existsSync("./images/" + imageName)) return [3 /*break*/, 3];
+                    return [4 /*yield*/, sharp_1.default("./images/" + imageName).resize(300, 200).toFile(outputFile)];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, sharp_1.default("./images/" + imageName).resize(300, 200).toFile(outputFile)];
-                case 3:
-                    _a.sent();
                     return [2 /*return*/, outputFile];
+                case 3: return [2 /*return*/, "**Image does not exist**"];
                 case 4: return [3 /*break*/, 6];
                 case 5:
                     error_1 = _a.sent();
-                    return [2 /*return*/, "Image does not exist"];
+                    return [2 /*return*/, error_1];
                 case 6: return [2 /*return*/];
             }
         });

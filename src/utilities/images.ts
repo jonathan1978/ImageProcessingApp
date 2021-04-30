@@ -9,12 +9,16 @@ async function transform(imageName: string) {
         if (fs.existsSync(outputFile)) {
           return outputFile;
         } else {
-          await fsPromises.access(`./images/${imageName}`, constants.R_OK | constants.W_OK);
-          await sharp(`./images/${imageName}`).resize(300, 200).toFile(outputFile);
-          return outputFile;
+          if (fs.existsSync(`./images/${imageName}`)) {
+            await sharp(`./images/${imageName}`).resize(300, 200).toFile(outputFile);
+            return outputFile;
+          }
+          else {
+            return "**Image does not exist**";
+          }
         }
       } catch (error) {
-        return "Image does not exist";
+        return error;
       }
 }
 

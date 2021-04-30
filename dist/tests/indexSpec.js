@@ -79,7 +79,7 @@ describe('Test for endpoint requests and responses', function () {
                     case 0: return [4 /*yield*/, images_1.default.transform('jord')];
                     case 1:
                         data = _a.sent();
-                        expect(data).toBe('Image does not exist');
+                        expect(data).toBe('**Image does not exist**');
                         return [2 /*return*/];
                 }
             });
