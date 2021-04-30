@@ -2,11 +2,12 @@ import express from 'express';
 import images from './utilities/images';
 import path from 'path';
 import isValid from 'is-valid-path';
+import { Request, Response } from 'express';
 
 const app = express();
 const port = 3000;
 
-app.get('/api/images', async (req: express.Request, res: express.Response) => {
+app.get('/api/images', async (req: Request, res: Response) => {
   const fileName = req.query.fileName as string;
   if (fileName !== undefined) {
     images.transform(fileName).then(response => {
